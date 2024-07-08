@@ -121,13 +121,13 @@
     $(document).ready(function () {
         ledMatrix = new LedMatrix("#container", window.font['simpleMatrix'], 12);
         ledMatrix.showMessage('  Sorry! Garima I can\'t imagine myself without you <3  ');
-        ledMatrix.animate(60, null);
+        ledMatrix.animate(65, null);
 
         $('input[name="color"]').click(function() {
             ledMatrix.stopAnimate();
             var cssToLoad = $('input[name="color"]:checked').val();
             reloadStylesheet('css/led-matrix-' + cssToLoad + '.css');
-            ledMatrix.animate(60, null);
+            ledMatrix.animate(65, null);
         });
     });
 </script>
