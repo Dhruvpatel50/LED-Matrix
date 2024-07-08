@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico?v=1"/>
+    <title>Cool Led Matrix</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/led-matrix.js?v=0.0002"></script>
+    <script src="js/simpleMatrixFont.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #container-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+
+        .led {
+            width: 8px;
+            height: 8px;
+            background: #444;
+            box-shadow: 0 0 0 #444;
+            margin-right: 3px;
+            margin-top: 3px;
+        }
+
+        .led.active {
+            background: #ff4938;
+            box-shadow: 0 0 16px #ff3838;
+        }
+
+        .char_matrix {
+            padding-left: 3px;
+            width: 10px;
+            height: 110px;
+            padding-top: 4px;
+            background: rgb(56, 56, 56);
+            background: linear-gradient(to bottom, rgba(56, 56, 56, 1) 0%, rgba(33, 33, 33, 1) 100%);
+        }
+
+        .char_matrix > ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .led {
+                width: 6px;
+                height: 6px;
+                margin-right: 2px;
+                margin-top: 2px;
+            }
+
+            .char_matrix {
+                width: 7px;
+                height: 77px;
+                padding-top: 2px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .led {
+                width: 4px;
+                height: 4px;
+                margin-right: 1px;
+                margin-top: 1px;
+            }
+
+            .char_matrix {
+                width: 5px;
+                height: 55px;
+                padding-top: 1px;
+            }
+
+            #container {
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+                width: 100%;
+            }
+
+            #container-wrapper {
+                overflow-x: scroll;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="container-wrapper">
+    <div id="container"></div>
+</div>
+
+<script>
+    function reloadStylesheet(href) {
+        $('#style_loaded').attr('href', href + '?reload=' + new Date().getTime());
+    }
+
+    var ledMatrix;
+
+    $(document).ready(function () {
+        ledMatrix = new LedMatrix("#container", window.font['simpleMatrix'], 12);
+        ledMatrix.showMessage('  Sorry! Garima I can\'t imagine myself without you <3  ');
+        ledMatrix.animate(70, null);
+
+        $('input[name="color"]').click(function() {
+            ledMatrix.stopAnimate();
+            var cssToLoad = $('input[name="color"]:checked').val();
+            reloadStylesheet('css/led-matrix-' + cssToLoad + '.css');
+            ledMatrix.animate(70, null);
+        });
+    });
+</script>
+</body>
+</html>
